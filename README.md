@@ -1,5 +1,20 @@
-**This repo is supposed to used as config by NvChad users!**
+- LSP
+    - clang
+    - clang-format
+    - bash
+    - lua
+- Debugger
+    - dap
+    - dap-ui
+    - dap virtual text
+- Cosmetics
+    - TODO comments
+    - Render markdown
+    - dressing
+    - optimized nvim-tree view
+- Others
+    - Relative line numbers
+    - Restore cursor position
+    - Save sessions
 
-- The main nvchad repo (NvChad/NvChad) is used as a plugin by this repo.
-- So you just import its modules , like `require "nvchad.options" , require "nvchad.mappings"`
-- So you can delete the .git from this repo ( when you clone it locally ) or fork it :)
+
