@@ -20,6 +20,9 @@ require("lazy").setup({
     lazy = false,
     branch = "v2.5",
     import = "nvchad.plugins",
+    config = function()
+      require "options"
+    end,
   },
 
   { import = "plugins" },
@@ -29,9 +32,28 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
-require "options"
 require "nvchad.autocmds"
 
 vim.schedule(function()
   require "mappings"
 end)
+
+
+-- Restore cursor position
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    local line = vim.fn.line "'\""
+    if
+      line > 1
+      and line <= vim.fn.line "$"
+      and vim.bo.filetype ~= "commit"
+      and vim.fn.index({ "xxd", "gitrebase" }, vim.bo.filetype) == -1
+    then
+      vim.cmd 'normal! g`"'
+    end
+  end,
+})
+
