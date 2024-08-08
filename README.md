@@ -1,3 +1,9 @@
+## Install
+
+```bash
+git clone https://github.com/inok546/nvchad_config ~/.config/nvim/
+```
+## What's inside?
 - LSP
     - clang
     - clang-format
