@@ -77,11 +77,22 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "mfussenegger/nvim-dap",
     },
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
   },
   {
     "stevearc/dressing.nvim",
     lazy = false,
     opts = {},
+  },
+  {
+    "nvim-telescope/telescope-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "mfussenegger/nvim-dap",
+    },
   },
   {
     "folke/todo-comments.nvim",
