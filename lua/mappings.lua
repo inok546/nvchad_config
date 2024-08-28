@@ -31,16 +31,18 @@ map("n", "<leader>?", function()
 end, { desc = "Eval var under cursor" })
 
 -- compile and run in terminal
+-- TODO: Сделать чтобы файл сохранялся, прежде чем компилировался
 map("n", "<leader>rt", function()
   require("nvchad.term").runner {
     id = "run",
     pos = "sp",
     cmd = function()
+      vim.cmd("write")
       local file = vim.fn.expand "%"
       local ft_cmds = {
-        cpp = "clang++ " .. file .. " -O0 -Wall -Wextra -Werror && ./a.out && exit",
+        cpp = "clang++ " .. file .. " -g -O0 -Wall -Wextra -Werror && ./a.out && exit",
       }
       return ft_cmds[vim.bo.ft]
     end,
   }
-end, { desc = "Compile and run", noremap = true, silent = true })
+end, { desc = "Save, compile and run", noremap = true, silent = true })
