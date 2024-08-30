@@ -50,7 +50,7 @@ map("n", "<leader>rt", function()
       vim.cmd "write"
       local file = vim.fn.expand "%"
       local ft_cmds = {
-        cpp = "clang++ " .. file .. " -g -O0 -Wall -Wextra -Werror && ./a.out && exit",
+        cpp = "clang++ " .. file .. " -g -O0 -fno-limit-debug-info -Wall -Wextra -Werror && ./a.out && exit",
       }
       return ft_cmds[vim.bo.ft]
     end,
