@@ -57,18 +57,16 @@ return {
     "mfussenegger/nvim-dap",
   },
   {
+    -- TODO: Собака с дебагом зарыта здесь, нужно здесь как-то поменять конфигурацию dap
     "jay-babu/mason-nvim-dap.nvim",
     event = "VeryLazy",
     dependencies = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",
     },
-    opts = {
-      handlers = {},
-      ensure_installed = {
-        "codelldb",
-      },
-    },
+    config = function()
+      require "configs.mason-dap"
+    end,
   },
   {
     "theHamsta/nvim-dap-virtual-text",
