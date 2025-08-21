@@ -30,6 +30,13 @@ return {
     },
   },
   {
+    "echasnovski/mini.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("configs.mini-surround").setup()
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {

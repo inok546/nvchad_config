@@ -38,7 +38,6 @@ vim.schedule(function()
   require "mappings"
 end)
 
-
 -- Restore cursor position
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -56,4 +55,3 @@ autocmd("BufReadPost", {
     end
   end,
 })
-
