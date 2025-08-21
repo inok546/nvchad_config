@@ -2,16 +2,6 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
--- Functions
-local function compile_and_run()
-  vim.cmd "write"
-  local file = vim.fn.expand "%"
-  local ft_cmds = {
-    cpp = "clang++ " .. file .. " -g -O0 -fno-limit-debug-info -Wall -Wextra -Werror && ./a.out && exit",
-  }
-  return ft_cmds[vim.bo.ft]
-end
-
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
@@ -40,13 +30,16 @@ map("n", "<leader>?", function()
 end, { desc = "Eval var under cursor" })
 
 -- compile and run in terminal
-map("n", "<leader>rt", function()
-  require("nvchad.term").runner {
-    id = "run",
-    pos = "sp",
-    cmd = compile_and_run,
+local term = require("nvchad.term")
+local run  = require("configs.run")
+
+vim.keymap.set("n", "<leader>rt", function()
+  term.runner {
+    id  = "run",
+    pos = "sp",         
+    cmd = run.quick_run 
   }
-end, { desc = "Save, compile and run", noremap = true, silent = true })
+end, { desc = "Save, compile/run (temp dir / python), close on success", noremap = true, silent = true })
 
 -- Duplicated debug shortcuts
 -- NOTE: Depends on the terminal being used
