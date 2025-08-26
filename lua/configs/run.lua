@@ -26,7 +26,10 @@ function M.quick_run()
 
   local cmd = table.concat({
     [[td="$(mktemp -d 2>/dev/null || mktemp -d -t nvim)"]],
-    cc .. " " .. vim.fn.shellescape(file) .. " -g -O0 -Wall -Wextra -Werror -std=" .. std .. [[ -o "$td/a.out"]],
+    cc .. " " .. vim.fn.shellescape(file) 
+       .. " -g -O0 -Wall -Wextra -Werror -std=" .. std 
+       .. " -lm"
+       .. [[ -o "$td/a.out"]],
     [[ "$td/a.out" && exit ]], 
   }, " && ")
 
