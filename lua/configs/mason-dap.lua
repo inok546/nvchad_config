@@ -26,15 +26,38 @@ mason_dap.setup {
           request = "launch",
           program = function()
             vim.cmd "write"
-            local file = vim.fn.expand "%"
-            local output = vim.fn.expand "%:p:r"
-            local ft = vim.bo.filetype
-            local cc = (ft == "c") and "clang" or "clang++"
 
-            vim.cmd(
-              string.format("silent !%s %s -g -O0 -fno-limit-debug-info -Wall -Wextra -Werror -o %s", cc, file, output)
+            local file = vim.fn.expand "%:p"
+            local ft = vim.bo.filetype or ""
+            local ext = vim.fn.expand "%:e"
+
+            -- Выбор компилятора и стандарта "как в run.lua"
+            local cc, std
+            if ft == "c" or ext == "c" then
+              cc, std = "gcc", "c17"
+            else
+              cc, std = "clang++", "c++20"
+            end
+
+            -- tmp-директория (кросс-платформенно для GNU/BusyBox mktemp)
+            local td = vim.fn.systemlist("mktemp -d 2>/dev/null || mktemp -d -t nvim")[1]
+            if not td or td == "" then
+              td = "/tmp"
+            end
+
+            local out = td .. "/a.out"
+
+            -- Сборка с отладочной инфой (-g), варнинги и линк math (-lm)
+            local cmd = string.format(
+              "silent !%s %s -g -O0 -Wall -Wextra -Werror -std=%s -lm -o %s",
+              cc,
+              vim.fn.shellescape(file),
+              std,
+              vim.fn.shellescape(out)
             )
-            return output
+            vim.cmd(cmd)
+
+            return out
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,
