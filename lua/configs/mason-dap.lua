@@ -28,7 +28,12 @@ mason_dap.setup {
             vim.cmd "write"
             local file = vim.fn.expand "%"
             local output = vim.fn.expand "%:p:r"
-            vim.cmd("silent !clang++ " .. file .. " -g -O0 -fno-limit-debug-info -Wall -Wextra -Werror -o " .. output)
+            local ft = vim.bo.filetype
+            local cc = (ft == "c") and "clang" or "clang++"
+
+            vim.cmd(
+              string.format("silent !%s %s -g -O0 -fno-limit-debug-info -Wall -Wextra -Werror -o %s", cc, file, output)
+            )
             return output
           end,
           cwd = "${workspaceFolder}",
