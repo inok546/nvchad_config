@@ -6,7 +6,6 @@ function M.setup()
   if not ok then return end
 
   surround.setup({
-    -- можно опустить mappings — это дефолты; оставляю явно для наглядности
     mappings = {
       add = "sa",            -- добавить окружение
       delete = "sd",         -- удалить
