@@ -107,6 +107,15 @@ return {
       require("todo-comments").setup()
     end,
   },
+
+  {
+    "f-person/auto-dark-mode.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("configs.auto-dark-mode").setup()
+    end,
+  },
+
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
