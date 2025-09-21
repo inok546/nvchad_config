@@ -5,6 +5,11 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
+-- Tabs control
+map("n", "<leader>tn", ":tabnew<CR>",      { desc = "New tab" })
+map("n", "<leader>tc", ":tabclose<CR>",    { desc = "Close tab" })
+map("n", "<leader>to", ":tabonly<CR>",     { desc = "Close other tabs" })
+
 -- Debugger
 map("n", "<leader>dq", "<cmd> DapTerminate <CR>", { desc = "Terminate the debugger" })
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "Add/remove breakpoint at line" })
