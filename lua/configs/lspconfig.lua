@@ -1,10 +1,11 @@
-require("nvchad.configs.lspconfig").defaults()
-
-local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 
-lspconfig.clangd.setup {
+vim.lsp.config('clangd', {
+  capabilities = nvlsp.capabilities,
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-}
+})
+
+vim.lsp.enable('clangd')
+vim.lsp.enable('lua_ls')
+
